@@ -39,7 +39,7 @@ int main()
 
    if (broadcastReceiver->bind(nullptr, port) == false)
    {
-      std::cout << "Broadcast settings have not been set\n";
+      std::cout << "Binding error\n";
       std::cout << "Error: " << WinsockManager::getErrorMessage() << "\n";
       broadcastReceiver->close();
       winsockManager->cleanup();
@@ -48,7 +48,7 @@ int main()
 
    if (broadcastReceiver->recvFrom(recvBuff, RECV_BUFF_SIZE) <= 0)
    {
-      std::cout << "Data have not been sent\n";
+      std::cout << "Data have not been received\n";
       std::cout << "Error: " << WinsockManager::getErrorMessage() << "\n";
    }
    else

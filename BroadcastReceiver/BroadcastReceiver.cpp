@@ -47,14 +47,22 @@ bool BroadcastReceiver::bind(const char* address, const uint16_t port)
    // locals
    bool rV = true;
 
-   //char t = 1;
-   //rV = ::setsockopt(this->socketId, SOL_SOCKET, SO_BROADCAST, &t, sizeof(t));
+   char t = 1;
+   if (::setsockopt(this->socketId, SOL_SOCKET, SO_BROADCAST, &t, sizeof(t)) != 0)
+   {
+      rV = false;
+   }
 
    if(rV != false)
    { 
       this->fillIpProtocolFamily(&recvAddr);
       this->fillPort(port, &recvAddr);
       rV = this->fillNetworkAddressStructure(address, &recvAddr);
+   }
+
+   if (::bind(this->socketId, (sockaddr*)&recvAddr, sizeof(recvAddr)) != 0)
+   {
+      rV = false;
    }
 
    return rV; 
