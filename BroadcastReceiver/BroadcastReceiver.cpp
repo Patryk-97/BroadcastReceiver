@@ -90,6 +90,24 @@ void BroadcastReceiver::close()
    }
 }
 
+std::string BroadcastReceiver::getRemoteAddressIp(void) const
+{
+   // locals
+   std::string addressIp = "\"";
+
+   addressIp += std::to_string(this->recvAddr.sin_addr.S_un.S_un_b.s_b1) + ".";
+   addressIp += std::to_string(this->recvAddr.sin_addr.S_un.S_un_b.s_b2) + ".";
+   addressIp += std::to_string(this->recvAddr.sin_addr.S_un.S_un_b.s_b3) + ".";
+   addressIp += std::to_string(this->recvAddr.sin_addr.S_un.S_un_b.s_b4) + "\"";
+
+   return addressIp;
+}
+
+uint16_t BroadcastReceiver::getRemotePort(void) const
+{
+   return (this->recvAddr.sin_port & 0xFF00) >> 8 | (this->recvAddr.sin_port & 0x00FF) << 8;
+}
+
 void BroadcastReceiver::fillAddrInfoCriteria(addrinfo* hints) const
 {
    memset(hints, 0, sizeof(*hints));

@@ -10,6 +10,7 @@
 #include <stdint.h>
 #include <memory>
 #include <Ws2tcpip.h>
+#include <iostream>
 
 class BroadcastReceiver
 {
@@ -21,6 +22,8 @@ public:
    bool bind(const char* address, const uint16_t port);
    int recvFrom(char* recvBuff, int recvBuffSize);
    void close(void);
+   std::string getRemoteAddressIp(void) const;
+   uint16_t getRemotePort(void) const;
 
 private:
    void fillAddrInfoCriteria(addrinfo* hints) const;

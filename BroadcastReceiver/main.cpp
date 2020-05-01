@@ -53,7 +53,8 @@ int main()
    }
    else
    {
-      std::cout << "Received: " << recvBuff << "\n";
+      std::cout << "Received from [" << broadcastReceiver->getRemoteAddressIp() << ", ";
+      std::cout << broadcastReceiver->getRemotePort() << "]: " << recvBuff << "\n";
    }
 
    broadcastReceiver->close();
